@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>SOL Studio Microphone List</title>
+  <style>
+    /* ===== ОБЩИЙ ФОН СТРАНИЦЫ ===== */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f; /* тёмный фон страницы */
+      color: #111;
+    }
+
+    /* ===== ЗАГОЛОВОК ===== */
+    h1 {
+      text-align: center;
+      padding: 20px;
+      background: #0a0a0a;
+      color: white;
+      margin: 0;
+    }
+
+    /* ===== КОНТЕЙНЕР ДЛЯ КАРТОЧЕК ===== */
+    #cards {
+      display: grid;
+      gap: 20px;
+      padding: 20px;
+
+      /* ПК — сколько помещается */
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    /* ===== На телефоне — фикс 2 в ряд ===== */
+    @media (max-width: 500px) {
+      #cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ===== КАРТОЧКА ===== */
+    .card {
+      background: #ffffff;                  /* белый фон карточки */
+      border: 1px solid #ddd;               /* рамка */
+      border-radius: 10px;                  /* скругление карточки */
+      overflow: hidden;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4); /* тёмная тень */
+    }
+
+    .card:hover {
+      border-color: #999;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    }
+
+    /* ===== КАРТИНКА ===== */
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    /* ===== ТЕКСТ ===== */
+    .card .info {
+      padding: 12px;
+    }
+
+    .card .brand {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .card .model {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .card .qty {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<h1>SOL Studio Microphone List</h1>
+
+<div id="cards"></div>
+
+<script>
+  const microphones = [
+    {
+      brand: "Neumann",
+      model: "U87 AI",
+      qty: 2,
+      img: "U87.jpg"
+    },
+    {
+      brand: "AKG",
+      model: "C414 XL II",
+      qty: 1,
+      img: "xlii.jpg"
+    },
+    {
+      brand: "Shure",
+      model: "SM57",
+      qty: 2,
+      img: "sm57.jpg"
+    },
+    {
+      brand: "Soyuz",
+      model: "017 Tube",
+      qty: 1,
+      img: "soyuz017.jpg"
+    },
+    {
+      brand: "Neumann",
+      model: "KM184",
+      qty: 4,
+      img: "km184.jpg"
+    },
+    {
+      brand: "JZ",
+      model: "BH-2",
+      qty: 1,
+      img: "jzbh2.png"
+    },
+{
+      brand: "EV",
+      model: "RE-20",
+      qty: 1,
+      img: "re20.jpg"
+    },
+    {
+      brand: "JZ",
+      model: "BT-201",
+      qty: 2,
+      img: "bt201.png"
+    },
+    {
+      brand: "Shure",
+      model: "Beta 52A",
+      qty: 1,
+      img: "beta52.jpg"
+    },
+    {
+      brand: "Shure",
+      model: "Vintage SM58",
+      qty: 1,
+      img: "sm58.jpg"
+    },
+    {
+      brand: "Neumann",
+      model: "KSM 105",
+      qty: 1,
+      img: "ksm105.jpg"
+    },
+    {
+      brand: "Sennheiser",
+      model: "E604",
+      qty: 1,
+      img: "e604.jpg"
+    },
+{
+      brand: "Crown",
+      model: "PCC160",
+      qty: 1,
+      img: "crown.jpg"
+    },
+    {
+      brand: "Oktava",
+      model: "MK-012",
+      qty: 4,
+      img: "oktava102.jpg"
+    },
+    {
+      brand: "Sennheiser",
+      model: "MD46",
+      qty: 1,
+      img: "md46.jpg"
+    },
+    {
+      brand: "Charter Oak",
+      model: "M900 Tube",
+      qty: 2,
+      img: "Charter-Oak_M900T.jpg"
+    },
+    {
+      brand: "AKG",
+      model: "c430",
+      qty: 2,
+      img: "c430.jpg"
+    },
+    {
+      brand: "Neumann Gefell",
+      model: "CMV563 M9 Capsule",
+      qty: 1,
+      img: "cmv563.png"
+    },
+{
+      brand: "Rode",
+      model: "NTG 3",
+      qty: 4,
+      img: "ntg3.jpg"
+    },
+    {
+      brand: "AKG",
+      model: "D222",
+      qty: 2,
+      img: "d222.jpg"
+    },
+    {
+      brand: "AKG",
+      model: "D120",
+      qty: 1,
+      img: "d120.jpg"
+    }
+  ];
+
+  const cards = document.getElementById("cards");
+
+  microphones.forEach(mic => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${mic.img}" alt="${mic.brand} ${mic.model}">
+      <div class="info">
+        <div class="brand">${mic.brand}</div>
+        <div class="model">${mic.model}</div>
+        <div class="qty">Qty: ${mic.qty}</div>
+      </div>
+    `;
+    cards.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
