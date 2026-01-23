@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOL Studio Microphone List</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      background: #0a0a0a;
+    }
+
+    #cards {
+      padding: 20px;
+    }
+
+    /* ===== СЕКЦИЯ ===== */
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section h2 {
+      margin: 0 0 20px;
+      font-size: 20px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+    }
+
+    /* ===== СЕТКА ===== */
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    @media (max-width: 500px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ===== КАРТОЧКА ===== */
+    .card {
+      background: #fff;
+      color: #111;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .info {
+      padding: 12px;
+    }
+
+    .brand {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .model {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .qty {
+      font-size: 12px;
+      color: #777;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>SOL Studio Microphone List</h1>
+
+<div id="cards"></div>
+
+<script>
+  const microphones = [
+    { brand: "Neumann", model: "U87 AI", qty: 2, img: "u87.jpg", type: "ldc" },
+    { brand: "AKG", model: "C414 XL II", qty: 1, img: "xlii.jpg", type: "ldc" },
+    { brand: "Soyuz", model: "017 Tube", qty: 1, img: "soyuz017.jpg", type: "ldc" },
+    { brand: "JZ", model: "BH-2", qty: 1, img: "jzbh2.png", type: "ldc" },
+    { brand: "Charter Oak", model: "M900 Tube", qty: 2, img: "charter.jpg", type: "ldc" },
+
+    { brand: "Neumann", model: "KM184", qty: 4, img: "km184.jpg", type: "sdc" },
+    { brand: "Oktava", model: "MK-012", qty: 4, img: "oktava102.jpg", type: "sdc" },
+    { brand: "AKG", model: "C430", qty: 2, img: "c430.jpg", type: "sdc" },
+    { brand: "JZ", model: "BT-201", qty: 2, img: "bt201.png", type: "sdc" },
+
+    { brand: "Shure", model: "SM57", qty: 2, img: "sm57.jpg", type: "dynamic" },
+    { brand: "EV", model: "RE-20", qty: 1, img: "re20.jpg", type: "dynamic" },
+    { brand: "Shure", model: "Beta 52A", qty: 1, img: "beta52.jpg", type: "dynamic" },
+    { brand: "Sennheiser", model: "E604", qty: 1, img: "e604.jpg", type: "dynamic" }
+  ];
+
+  const sections = {
+    ldc: "Large Diaphragm Condenser Microphones",
+    sdc: "Small Diaphragm Condenser Microphones",
+    dynamic: "Dynamic Microphones"
+  };
+
+  const container = document.getElementById("cards");
+
+  Object.keys(sections).forEach(type => {
+    const group = microphones.filter(m => m.type === type);
+    if (!group.length) return;
+
+    const section = document.createElement("div");
+    section.className = "section";
+    section.innerHTML = `<h2>${sections[type]}</h2>`;
+
+    const grid = document.createElement("div");
+    grid.className = "grid";
+
+    group.forEach(mic => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${mic.img}" alt="${mic.brand} ${mic.model}">
+        <div class="info">
+          <div class="brand">${mic.brand}</div>
+          <div class="model">${mic.model}</div>
+          <div class="qty">Qty: ${mic.qty}</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    section.appendChild(grid);
+    container.appendChild(section);
+  });
+</script>
+
+</body>
+</html>
